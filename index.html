@@ -3,343 +3,468 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAU MAKAN TAPI MALES KELUAR ANTERIN AJA | Pesan & Antar</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AntarMakan | Pesan dan Antar</title>
+
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
 <style>
-:root {
-  --green:#173c32;
-  --green2:#285747;
-  --cream:#f6f5ef;
-  --gold:#c9a86a;
-  --ink:#202b25;
-  --muted:#7b867e;
-  --line:#e7e8df;
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif}
-header{background:var(--green);color:white;padding:20px 18px 35px}
-nav{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:auto}
-.logo{font-size:22px;font-weight:800;letter-spacing:.3px}
-.logo span{color:var(--gold)}
-.adminBtn{border:1px solid #ffffff55;background:transparent;color:white;padding:9px 14px;border-radius:20px}
-.hero{max-width:900px;margin:30px auto 0}
-.hero small{color:#d8c69f;letter-spacing:2px}
-.hero h1{font-size:34px;line-height:1.15;margin:12px 0}
-.hero p{color:#d8e2dc;line-height:1.6;max-width:500px}
-main{max-width:900px;margin:-18px auto 40px;padding:0 14px}
-.card{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px #173c320b}
-h2{font-size:19px;margin:0 0 16px}
-label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}
-input,textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:11px;font-size:15px;background:#fff}
-textarea{min-height:90px;resize:vertical}
-input:focus,textarea:focus{outline:2px solid #28574733;border-color:var(--green2)}
-#map{height:290px;border-radius:14px;margin-top:12px;z-index:1}
-.gps{background:#edf4ef;color:var(--green);border:0;padding:11px 14px;border-radius:10px;font-weight:700;margin-top:10px}
-.hint{font-size:12px;color:var(--muted);line-height:1.5}
-.fare{background:#f5f7f2;border-radius:14px;padding:15px;margin-top:15px}
-.fare div{display:flex;justify-content:space-between;margin:8px 0;font-size:14px}
-.fare strong{color:var(--green);font-size:20px}
-.primary{width:100%;padding:16px;border:0;border-radius:13px;background:var(--green);color:white;font-weight:800;font-size:16px;margin-top:18px}
-.primary:disabled{opacity:.5}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
-.modal{display:none;position:fixed;inset:0;background:#0009;z-index:999;padding:18px;overflow:auto}
-.modalBox{max-width:500px;background:white;border-radius:18px;padding:20px;margin:35px auto}
-.secondary{padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:white}
-.order{border:1px solid var(--line);padding:12px;border-radius:12px;margin:10px 0}
-.order select{padding:8px;border:1px solid var(--line);border-radius:8px}
-@media(min-width:700px){.hero h1{font-size:45px}.card{padding:25px}}
+body{
+ margin:0;
+ background:#f4f6f1;
+ color:#203126;
+ font-family:Arial,sans-serif
+}
+header{
+ background:#183e2c;
+ color:white;
+ padding:25px 20px 35px;
+ border-radius:0 0 25px 25px
+}
+.wrap{max-width:650px;margin:auto}
+.logo{font-size:25px;font-weight:800}
+.logo span{color:#d9bd75}
+.hero{margin-top:27px}
+.hero h1{font-size:28px;line-height:1.25;margin:0 0 9px}
+.hero p{font-size:14px;color:#dce7df;line-height:1.6;margin:0}
+main{max-width:650px;margin:auto;padding:18px 15px 35px}
+.card{
+ background:white;
+ padding:19px;
+ border-radius:18px;
+ margin-bottom:15px;
+ box-shadow:0 5px 20px #183e2c0b
+}
+h2{font-size:17px;margin:0 0 8px}
+.desc{font-size:12px;color:#7b867d;line-height:1.5;margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:bold;margin:14px 0 7px}
+input,textarea{
+ width:100%;padding:14px;
+ border:1px solid #e1e8e0;
+ border-radius:11px;
+ background:#fbfcfa;
+ font-size:14px;
+ font-family:inherit;
+ outline:none
+}
+input:focus,textarea:focus{border-color:#397451}
+textarea{min-height:85px;resize:vertical}
+#map{
+ height:310px;
+ width:100%;
+ border-radius:14px;
+ z-index:1;
+ background:#e8eee8
+}
+.actions{display:flex;gap:9px;margin-top:12px}
+button{
+ border:0;border-radius:11px;
+ padding:14px;
+ font-size:13px;font-weight:bold;
+ cursor:pointer
+}
+.gps{background:#eaf2eb;color:#245238;flex:1}
+.secondary{background:#f1f3ef;color:#59655c}
+.status{
+ font-size:12px;color:#52705b;
+ margin-top:12px;line-height:1.5
+}
+.fee{
+ background:#f1f6f0;
+ border-radius:13px;
+ padding:15px;
+ margin-top:15px
+}
+.fee-line{
+ display:flex;justify-content:space-between;
+ gap:10px;font-size:13px;margin:7px 0
+}
+.fee strong{color:#1d5535}
+.total{
+ border-top:1px solid #dce6da;
+ padding-top:12px;
+ margin-top:12px;
+ font-size:15px;font-weight:bold
+}
+.submit{
+ width:100%;
+ background:#1b633d;
+ color:white;
+ padding:16px;
+ font-size:15px;
+ margin-top:5px
+}
+.submit:active{background:#144b2e}
+.note{
+ font-size:11px;color:#89918a;
+ text-align:center;line-height:1.6;
+ margin-top:15px
+}
+footer{
+ text-align:center;color:#89918a;
+ font-size:11px;padding:10px 15px 25px
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <nav>
-    <div class="logo">Antar<span>Makan.</span></div>
-    <button class="adminBtn" onclick="openAdmin()">Admin</button>
-  </nav>
+ <div class="wrap">
+  <div class="logo">Antar<span>Makan.</span></div>
   <div class="hero">
-    <small>LAYANAN PESAN & ANTAR</small>
-    <h1>Makanan favoritmu,<br>sampai di depan pintu.</h1>
-    <p>Tulis makanan yang kamu inginkan. Pilih lokasi pengantaran, lalu pesan dengan mudah melalui WhatsApp.</p>
+   <h1>Makanan pilihanmu,<br>kami antar ke tujuan.</h1>
+   <p>Pesan dengan mudah. Tentukan lokasi pengantaran melalui peta, lalu pesanan dikirim langsung ke WhatsApp.</p>
   </div>
+ </div>
 </header>
 
 <main>
-  <section class="card">
-    <h2>01. Data pemesan</h2>
-    <label>Nama kamu</label>
-    <input id="nama" placeholder="Masukkan nama">
 
-    <label>Nomor HP</label>
-    <input id="telepon" type="tel" placeholder="08xxxxxxxxxx">
+ <section class="card">
+  <h2>Detail Pesanan</h2>
+  <div class="desc">Isi makanan yang ingin kamu pesan.</div>
 
-    <label>Mau pesan makanan apa?</label>
-    <textarea id="makanan" placeholder="Contoh: Nasi goreng 2 porsi, es teh 1..."></textarea>
+  <label>Nama pelanggan</label>
+  <input id="nama" placeholder="Nama kamu">
 
-    <label>Catatan tambahan (opsional)</label>
-    <input id="catatan" placeholder="Contoh: Tidak pedas, sambal dipisah">
-  </section>
+  <label>Nomor HP</label>
+  <input id="telepon" type="tel" placeholder="08xxxxxxxxxx">
 
-  <section class="card">
-    <h2>02. Lokasi pengantaran</h2>
-    <p class="hint">Tekan tombol lokasi saya atau sentuh peta untuk menentukan tempat pengantaran.</p>
-    <button class="gps" onclick="getGPS()">◎ Gunakan lokasi saya</button>
-    <div id="map"></div>
-    <p class="hint" id="lokasiInfo">Belum ada lokasi yang dipilih.</p>
-    <button class="secondary" onclick="hitungOngkir()">Hitung ulang ongkir</button>
+  <label>Mau pesan apa?</label>
+  <textarea id="pesanan" placeholder="Contoh: Nasi goreng 1, es teh 2, dan lainnya..."></textarea>
 
-    <div class="fare">
-      <div><span>Jarak rute</span><b id="jarak">Belum dihitung</b></div>
-      <div><span>Biaya pengantaran</span><strong id="ongkir">Rp0</strong></div>
-      <p class="hint" id="statusRute">Pilih lokasi untuk menghitung ongkir.</p>
-    </div>
-    <button class="primary" id="pesanBtn" onclick="kirimPesanan()">Pesan melalui WhatsApp</button>
-  </section>
+  <label>Catatan tambahan (opsional)</label>
+  <textarea id="catatan" placeholder="Contoh: Tidak pedas, sambal dipisah..."></textarea>
+ </section>
+
+ <section class="card">
+  <h2>Lokasi Pengantaran</h2>
+  <div class="desc">Izinkan akses lokasi agar peta menunjukkan posisi HP kamu. Pin bisa digeser jika titiknya kurang tepat.</div>
+
+  <div id="map"></div>
+
+  <div class="actions">
+   <button type="button" class="gps" id="gpsBtn">📍 Gunakan Lokasi Saya</button>
+   <button type="button" class="secondary" id="resetBtn">Ulangi</button>
+  </div>
+
+  <div class="status" id="locationStatus">
+   Menunggu lokasi HP kamu...
+  </div>
+ </section>
+
+ <section class="card">
+  <h2>Perkiraan Ongkir</h2>
+  <div class="desc">Ongkir dihitung dari titik awal kurir ke lokasi tujuan.</div>
+
+  <div class="fee">
+   <div class="fee-line">
+    <span>Jarak pengantaran</span>
+    <strong id="distance">Belum dihitung</strong>
+   </div>
+   <div class="fee-line">
+    <span>Perkiraan ongkir</span>
+    <strong id="fare">Belum dihitung</strong>
+   </div>
+   <div class="fee-line total">
+    <span>Total ongkir</span>
+    <strong id="totalFare">-</strong>
+   </div>
+  </div>
+
+  <div class="note" id="routeNote">
+   Ongkir akan dihitung setelah lokasi dipilih.
+  </div>
+ </section>
+
+ <button type="button" class="submit" id="orderBtn">
+  Pesan Sekarang melalui WhatsApp
+ </button>
+
+ <div class="note">
+  Harga makanan dan ketersediaan pesanan akan dikonfirmasi melalui WhatsApp.
+ </div>
+
 </main>
 
-<footer>© 2026 AntarMakan · Pesan mudah, antar nyaman.</footer>
-
-<div class="modal" id="adminModal">
-  <div class="modalBox">
-    </div>
-    <button class="secondary" style="margin-top:15px" onclick="closeAdmin()">Tutup</button>
-  </div>
-</div>
+<footer>
+ © 2026 AntarMakan · Layanan pesan antar
+</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-const defaults = {
-  waNumber: "6285816380788",
-  baseFare: 4000,
-  perKm: 2000,
-  includedKm: 1,
-  minFare: 4000,
-  origin: "-7.5,110.5"
+// ==================================
+// PENGATURAN WEBSITE
+// ==================================
+
+// GANTI dengan nomor WhatsApp penerima pesanan.
+// Gunakan kode negara 62, tanpa tanda +.
+const WHATSAPP_ADMIN = "6285816380788";
+
+// Titik awal kurir: perkiraan area Sepanjang, Glenmore.
+// Ganti dengan koordinat titik awal kurir yang sebenarnya.
+const TITIK_KURIR = {
+ lat: -8.2835,
+ lng: 114.0645
 };
 
-let settings = {...defaults, ...JSON.parse(localStorage.getItem("antar_settings") || "{}")};
-let destination = null;
-let routeKm = null;
-let marker = null;
-let routeLine = null;
-let mapReady = false;
+// Contoh tarif, silakan sesuaikan.
+const TARIF = {
+ dasar: 4000,
+ perKm: 2000,
+ termasukKm: 1,
+ minimum: 4000
+};
 
-const map = L.map("map").setView([-7.5,110.5], 12);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; OpenStreetMap contributors'
+// ==================================
+// PETA
+// ==================================
+
+const map = L.map("map").setView(
+ [TITIK_KURIR.lat,TITIK_KURIR.lng],14
+);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+ attribution:"&copy; OpenStreetMap"
 }).addTo(map);
 
-map.on("click", e => setDestination(e.latlng.lat,e.latlng.lng));
+let marker=null;
+let lokasiPelanggan=null;
+let jarakKm=null;
+let ongkir=null;
+let sedangMenghitung=false;
 
-function setDestination(lat,lng){
-  destination = {lat,lng};
-  routeKm = null;
-  if(marker) map.removeLayer(marker);
-  marker = L.marker([lat,lng],{draggable:true}).addTo(map);
-  marker.on("dragend",e=>{
-    const p=e.target.getLatLng();
-    setDestination(p.lat,p.lng);
+function formatRupiah(angka){
+ return new Intl.NumberFormat("id-ID",{
+  style:"currency",
+  currency:"IDR",
+  maximumFractionDigits:0
+ }).format(angka);
+}
+
+function statusLokasi(teks){
+ document.getElementById("locationStatus").textContent=teks;
+}
+
+function pilihLokasi(lat,lng){
+ lokasiPelanggan={lat,lng};
+
+ if(!marker){
+  marker=L.marker([lat,lng],{draggable:true}).addTo(map);
+
+  marker.on("dragend",()=>{
+   const p=marker.getLatLng();
+   lokasiPelanggan={lat:p.lat,lng:p.lng};
+   hitungOngkir();
   });
-  document.getElementById("lokasiInfo").textContent =
-    "Lokasi dipilih: "+lat.toFixed(5)+", "+lng.toFixed(5);
-  document.getElementById("jarak").textContent="Menghitung...";
-  document.getElementById("ongkir").textContent="—";
-  document.getElementById("statusRute").textContent="Sedang menghitung rute jalan...";
-  hitungOngkir();
+ }else{
+  marker.setLatLng([lat,lng]);
+ }
+
+ map.setView([lat,lng],17);
+ statusLokasi("Lokasi pengantaran sudah dipilih.");
+ hitungOngkir();
 }
 
-function getGPS(){
-  if(!navigator.geolocation){
-    alert("Browser tidak mendukung GPS.");
-    return;
+map.on("click",e=>{
+ pilihLokasi(e.latlng.lat,e.latlng.lng);
+});
+
+// ==================================
+// GPS PELANGGAN
+// ==================================
+
+function gunakanLokasiSaya(){
+ if(!navigator.geolocation){
+  alert("Browser tidak mendukung fitur lokasi.");
+  return;
+ }
+
+ statusLokasi("Sedang mencari posisi HP kamu...");
+
+ navigator.geolocation.getCurrentPosition(
+  posisi=>{
+   pilihLokasi(
+    posisi.coords.latitude,
+    posisi.coords.longitude
+   );
+  },
+  error=>{
+   let pesan="Lokasi tidak berhasil didapatkan. ";
+   if(error.code===1) pesan+="Izinkan akses lokasi di browser.";
+   else if(error.code===2) pesan+="Sinyal lokasi tidak tersedia.";
+   else pesan+="Coba tekan tombol lokasi lagi.";
+   statusLokasi(pesan);
+   alert(pesan);
+  },
+  {
+   enableHighAccuracy:true,
+   timeout:20000,
+   maximumAge:0
   }
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const lat=pos.coords.latitude, lng=pos.coords.longitude;
-    map.setView([lat,lng],16);
-    setDestination(lat,lng);
-  },()=>{
-    alert("Lokasi tidak bisa diakses. Izinkan akses lokasi atau pilih titik di peta.");
-  },{enableHighAccuracy:true,timeout:15000});
+ );
 }
 
-function getOrigin(){
-  const parts=settings.origin.split(",").map(Number);
-  if(parts.length!==2 || !parts.every(Number.isFinite)) return null;
-  return {lat:parts[0],lng:parts[1]};
+document.getElementById("gpsBtn")
+ .addEventListener("click",gunakanLokasiSaya);
+
+document.getElementById("resetBtn")
+ .addEventListener("click",gunakanLokasiSaya);
+
+// ==================================
+// HITUNG JARAK GARIS LURUS CADANGAN
+// ==================================
+
+function jarakGarisLurus(a,b){
+ const R=6371;
+ const rad=n=>n*Math.PI/180;
+
+ const dLat=rad(b.lat-a.lat);
+ const dLng=rad(b.lng-a.lng);
+
+ const x=Math.sin(dLat/2)**2+
+  Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*
+  Math.sin(dLng/2)**2;
+
+ return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
 
-function haversine(a,b){
-  const R=6371;
-  const rad=x=>x*Math.PI/180;
-  const dLat=rad(b.lat-a.lat),dLng=rad(b.lng-a.lng);
-  const x=Math.sin(dLat/2)**2+
-    Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLng/2)**2;
-  return 2*R*Math.asin(Math.sqrt(x));
+// ==================================
+// HITUNG ONGKIR
+// ==================================
+
+function hitungTarif(km){
+ return Math.max(
+  TARIF.minimum,
+  TARIF.dasar+
+  Math.ceil(Math.max(0,km-TARIF.termasukKm))*TARIF.perKm
+ );
 }
 
 async function hitungOngkir(){
-  if(!destination){
-    alert("Pilih lokasi pengantaran di peta terlebih dahulu.");
-    return;
+ if(!lokasiPelanggan)return;
+ if(sedangMenghitung)return;
+
+ sedangMenghitung=true;
+ document.getElementById("routeNote").textContent=
+  "Sedang menghitung rute perjalanan...";
+
+ const tujuan=lokasiPelanggan;
+ let km=null;
+ let pakaiRuteJalan=false;
+
+ try{
+  const url=
+   "https://router.project-osrm.org/route/v1/driving/"+
+   TITIK_KURIR.lng+","+TITIK_KURIR.lat+";"+
+   tujuan.lng+","+tujuan.lat+
+   "?overview=false";
+
+  const response=await fetch(url);
+  const data=await response.json();
+
+  if(data.code==="Ok"&&data.routes&&data.routes.length){
+   km=data.routes[0].distance/1000;
+   pakaiRuteJalan=true;
   }
-  const origin=getOrigin();
-  if(!origin){
-    alert("Koordinat titik awal kurir di pengaturan admin belum benar.");
-    return;
-  }
+ }catch(e){
+  console.log("Rute jalan tidak tersedia.");
+ }
 
-  document.getElementById("statusRute").textContent="Menghitung rute jalan...";
-  document.getElementById("pesanBtn").disabled=true;
+ // Abaikan hasil lama jika pelanggan sudah mengganti titik.
+ if(tujuan!==lokasiPelanggan){
+  sedangMenghitung=false;
+  return;
+ }
 
-  try{
-    const url=`https://router.project-osrm.org/route/v1/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`;
-    const response=await fetch(url);
-    if(!response.ok) throw new Error("Rute tidak tersedia");
-    const data=await response.json();
-    if(!data.routes || !data.routes.length) throw new Error("Rute kosong");
+ if(km===null){
+  km=jarakGarisLurus(TITIK_KURIR,tujuan);
+  document.getElementById("routeNote").textContent=
+   "Rute jalan belum tersedia. Jarak ini garis lurus dan ongkir hanya perkiraan.";
+ }else{
+  document.getElementById("routeNote").textContent=
+   "Jarak berdasarkan perkiraan rute jalan. Ongkir akhir dikonfirmasi melalui WhatsApp.";
+ }
 
-    routeKm=data.routes[0].distance/1000;
-    if(routeLine) map.removeLayer(routeLine);
-    routeLine=L.geoJSON({
-      type:"Feature",
-      geometry:data.routes[0].geometry
-    },{style:{color:"#285747",weight:5}}).addTo(map);
-    map.fitBounds(routeLine.getBounds(),{padding:[20,20]});
-    document.getElementById("statusRute").textContent="Jarak dihitung berdasarkan rute jalan.";
-  }catch(err){
-    routeKm=haversine(origin,destination);
-    document.getElementById("statusRute").textContent=
-      "Rute jalan tidak tersedia. Jarak garis lurus hanya perkiraan; admin perlu konfirmasi ongkir.";
-  }
+ jarakKm=km;
+ ongkir=hitungTarif(km);
 
-  const extra=Math.ceil(Math.max(0,routeKm-Number(settings.includedKm)));
-  const fee=Math.max(Number(settings.minFare),
-    Number(settings.baseFare)+extra*Number(settings.perKm));
+ document.getElementById("distance").textContent=
+  km.toFixed(1)+" km";
 
-  document.getElementById("jarak").textContent=routeKm.toFixed(1)+" km";
-  document.getElementById("ongkir").textContent=rupiah(fee);
-  document.getElementById("pesanBtn").disabled=false;
+ document.getElementById("fare").textContent=
+  formatRupiah(ongkir);
+
+ document.getElementById("totalFare").textContent=
+  formatRupiah(ongkir);
+
+ sedangMenghitung=false;
 }
 
-function rupiah(n){
-  return "Rp"+Math.round(n).toLocaleString("id-ID");
-}
+// ==================================
+// KIRIM PESAN WHATSAPP
+// ==================================
 
-function kirimPesanan(){
-  const nama=document.getElementById("nama").value.trim();
-  const telepon=document.getElementById("telepon").value.trim();
-  const makanan=document.getElementById("makanan").value.trim();
-  const catatan=document.getElementById("catatan").value.trim();
+document.getElementById("orderBtn").addEventListener("click",()=>{
+ const nama=document.getElementById("nama").value.trim();
+ const telepon=document.getElementById("telepon").value.trim();
+ const pesanan=document.getElementById("pesanan").value.trim();
+ const catatan=document.getElementById("catatan").value.trim();
 
-  if(!nama||!telepon||!makanan){
-    alert("Lengkapi nama, nomor HP, dan pesanan makanan.");
-    return;
-  }
-  if(!destination||routeKm===null){
-    alert("Tentukan lokasi dan tunggu perhitungan ongkir.");
-    return;
-  }
+ if(!nama||!telepon||!pesanan){
+  alert("Lengkapi nama, nomor HP, dan pesanan terlebih dahulu.");
+  return;
+ }
 
-  const extra=Math.ceil(Math.max(0,routeKm-Number(settings.includedKm)));
-  const fee=Math.max(Number(settings.minFare),
-    Number(settings.baseFare)+extra*Number(settings.perKm));
-  const mapLink=`https://www.openstreetmap.org/?mlat=${destination.lat}&mlon=${destination.lng}#map=17/${destination.lat}/${destination.lng}`;
+ if(!lokasiPelanggan){
+  alert("Pilih lokasi pengantaran terlebih dahulu.");
+  return;
+ }
 
-  const message=
-`PESANAN ANTARMAKAN
---------------------
-Nama: ${nama}
-Nomor HP: ${telepon}
+ if(jarakKm===null||ongkir===null||sedangMenghitung){
+  alert("Tunggu sampai perkiraan ongkir selesai dihitung.");
+  return;
+ }
 
-Pesanan:
-${makanan}
+ const lat=lokasiPelanggan.lat;
+ const lng=lokasiPelanggan.lng;
 
-Catatan: ${catatan||"-"}
+ const linkPeta=
+  "https://www.openstreetmap.org/?mlat="+lat+
+  "&mlon="+lng+"#map=18/"+lat+"/"+lng;
 
-Lokasi pengantaran:
-${mapLink}
+ const pesan=
+  "PESANAN ANTARMAKAN\n\n"+
+  "Nama: "+nama+"\n"+
+  "Nomor HP: "+telepon+"\n"+
+  "Pesanan: "+pesanan+"\n"+
+  "Catatan: "+(catatan||"-")+"\n\n"+
+  "LOKASI PENGANTARAN\n"+
+  linkPeta+"\n\n"+
+  "Jarak perkiraan: "+jarakKm.toFixed(1)+" km\n"+
+  "Perkiraan ongkir: "+formatRupiah(ongkir)+"\n\n"+
+  "Mohon konfirmasi pesanan dan total pembayaran.";
 
-Jarak perkiraan: ${routeKm.toFixed(1)} km
-Ongkir perkiraan: ${rupiah(fee)}
+ if(!/^\d{9,15}$/.test(WHATSAPP_ADMIN)){
+  alert("Nomor WhatsApp penerima belum diatur di kode website.");
+  return;
+ }
 
-Mohon konfirmasi harga makanan dan total pembayaran.`;
+ window.location.href=
+  "https://wa.me/"+WHATSAPP_ADMIN+
+  "?text="+encodeURIComponent(pesan);
+});
 
-  const orders=JSON.parse(localStorage.getItem("antar_orders")||"[]");
-  orders.unshift({
-    id:Date.now(),nama,makanan,fee,km:routeKm,
-    status:"Menunggu konfirmasi"
-  });
-  localStorage.setItem("antar_orders",JSON.stringify(orders));
+// Coba tampilkan posisi pelanggan ketika halaman dibuka.
+// Browser akan meminta izin lokasi.
+setTimeout(()=>{
+ gunakanLokasiSaya();
+},700);
 
-  const number=settings.waNumber.replace(/\D/g,"");
-  window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,"_blank");
-}
-
-function openAdmin(){
-  document.getElementById("adminModal").style.display="block";
-}
-function closeAdmin(){
-  document.getElementById("adminModal").style.display="none";
-}
-function loginAdmin(){
-  // PIN demo saja. Ganti sebelum penggunaan dan jangan anggap ini keamanan sungguhan.
-  if(document.getElementById("pin").value!=="03042004"){
-    alert("PIN salah.");
-    return;
-  }
-  document.getElementById("loginArea").style.display="none";
-  document.getElementById("adminArea").style.display="block";
-  document.getElementById("waNumber").value=settings.waNumber;
-  document.getElementById("baseFare").value=settings.baseFare;
-  document.getElementById("perKm").value=settings.perKm;
-  document.getElementById("includedKm").value=settings.includedKm;
-  document.getElementById("minFare").value=settings.minFare;
-  document.getElementById("origin").value=settings.origin;
-  renderOrders();
-}
-function saveSettings(){
-  settings={
-    waNumber:document.getElementById("waNumber").value.trim(),
-    baseFare:Number(document.getElementById("baseFare").value),
-    perKm:Number(document.getElementById("perKm").value),
-    includedKm:Number(document.getElementById("includedKm").value),
-    minFare:Number(document.getElementById("minFare").value),
-    origin:document.getElementById("origin").value.trim()
-  };
-  localStorage.setItem("antar_settings",JSON.stringify(settings));
-  alert("Pengaturan tersimpan di perangkat ini.");
-  if(destination) hitungOngkir();
-}
-function renderOrders(){
-  const orders=JSON.parse(localStorage.getItem("antar_orders")||"[]");
-  const el=document.getElementById("orders");
-  if(!orders.length){
-    el.innerHTML="<p class='hint'>Belum ada pesanan di perangkat ini.</p>";
-    return;
-  }
-  el.innerHTML=orders.map(o=>`
-    <div class="order">
-      <b>${escapeHTML(o.nama)}</b>
-      <p class="hint">${escapeHTML(o.makanan)}</p>
-      <p class="hint">${o.km.toFixed(1)} km · ${rupiah(o.fee)}</p>
-      <select onchange="changeStatus(${o.id},this.value)">
-        ${["Menunggu konfirmasi","Diterima","Sedang disiapkan","Dalam perjalanan","Selesai","Dibatalkan"].map(s=>
-          `<option ${o.status===s?"selected":""}>${s}</option>`).join("")}
-      </select>
-    </div>`).join("");
-}
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function changeStatus(id,status){
-  const orders=JSON.parse(localStorage.getItem("antar_orders")||"[]");
-  const order=orders.find(o=>o.id===id);
-  if(order) order.status=status;
-  localStorage.setItem("antar_orders",JSON.stringify(orders));
-}
 </script>
 </body>
 </html>
