@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTARIN - Pesan & Antar</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7f5;color:#17251d}
+header{background:#087d50;color:white;padding:25px 20px;border-radius:0 0 25px 25px}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0}
+main{max-width:600px;margin:auto;padding:18px}
+.card{background:white;padding:20px;border-radius:18px;margin-bottom:16px;box-shadow:0 4px 15px #0000000c}
+h2{margin-top:0;color:#087d50}
+label{display:block;font-weight:bold;margin:14px 0 7px}
+input,textarea{width:100%;padding:13px;border:1px solid #d5ded8;border-radius:10px;font-size:16px}
+textarea{min-height:85px;resize:vertical}
+button{width:100%;padding:14px;border:0;border-radius:11px;background:#087d50;color:white;font-size:16px;font-weight:bold;margin-top:12px}
+.map{background:#e8f5ed;color:#087d50}
+.price{font-size:25px;font-weight:bold;color:#087d50}
+.note{font-size:13px;color:#64736a;line-height:1.5}
+.disabled{opacity:.6}
+footer{text-align:center;padding:25px;color:#718078;font-size:13px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>ANTARIN</h1>
+<p>Pesan kebutuhanmu, kami bantu antarkan.</p>
+</header>
+
+<main>
+<section class="card">
+<h2>ANTARIN FOOD 🍜</h2>
+<p>Tulis makanan yang ingin kamu pesan. Kami akan menghubungi kamu untuk konfirmasi.</p>
+
+<label>Nama pelanggan</label>
+<input id="nama" placeholder="Nama kamu">
+
+<label>Nomor WhatsApp</label>
+<input id="hp" type="tel" placeholder="08xxxxxxxxxx">
+
+<label>Mau pesan apa?</label>
+<textarea id="pesanan" placeholder="Contoh: nasi goreng 2, es teh 1"></textarea>
+
+<label>Alamat tujuan</label>
+<textarea id="alamat" placeholder="Nama jalan, desa, kecamatan, patokan rumah"></textarea>
+
+<label>Lokasi Google Maps (tautan)</label>
+<input id="lokasi" placeholder="Tempel tautan lokasi Google Maps">
+
+<button class="map" onclick="bukaMaps()">📍 Pilih / Buka Lokasi di Google Maps</button>
+
+<label>Jarak pengantaran (km)</label>
+<input id="jarak" type="number" min="0.1" step="0.1" placeholder="Contoh: 3" oninput="hitungOngkir()">
+
+<p class="note">Masukkan perkiraan jarak dari tempat pembelian ke alamat tujuan. Ongkir dihitung berdasarkan kilometer penuh.</p>
+
+<div class="card">
+<p>Ongkos kirim</p>
+<div class="price" id="ongkir">Rp4.000</div>
+<p class="note">Harga makanan dan ketersediaan akan dikonfirmasi melalui WhatsApp sebelum pesanan diproses.</p>
+</div>
+
+<button onclick="kirimPesanan()">Pesan Sekarang via WhatsApp</button>
+</section>
+
+<section class="card disabled">
+<h2>ANTARIN SEKOLAH 🏫</h2>
+<p>Layanan belum aktif. Akan tersedia setelah persyaratan pengemudi dan keselamatan penumpang terpenuhi.</p>
+</section>
+</main>
+
+<footer>© 2026 ANTARIN</footer>
+
+<script>
+const nomorAdmin = "6285816380788"; // Ganti dengan nomor WhatsApp admin
+
+function hitungTarif(jarak){
+  const km = Math.floor(Math.max(0, jarak));
+  return km <= 1 ? 4000 : 5000 + (km - 2) * 2000;
+}
+
+function rupiah(angka){
+  return "Rp" + angka.toLocaleString("id-ID");
+}
+
+function hitungOngkir(){
+  const jarak = parseFloat(document.getElementById("jarak").value);
+  const biaya = Number.isFinite(jarak) && jarak >= 0
+    ? hitungTarif(jarak) : 4000;
+  document.getElementById("ongkir").textContent = rupiah(biaya);
+}
+
+function bukaMaps(){
+  const lokasi = document.getElementById("lokasi").value.trim();
+  if(lokasi){
+    window.open(lokasi, "_blank");
+  }else{
+    window.open("https://www.google.com/maps", "_blank");
+  }
+}
+
+function kirimPesanan(){
+  const nama = document.getElementById("nama").value.trim();
+  const hp = document.getElementById("hp").value.trim();
+  const pesanan = document.getElementById("pesanan").value.trim();
+  const alamat = document.getElementById("alamat").value.trim();
+  const lokasi = document.getElementById("lokasi").value.trim();
+  const jarak = parseFloat(document.getElementById("jarak").value);
+
+  if(!nama || !hp || !pesanan || !alamat || !Number.isFinite(jarak) || jarak <= 0){
+    alert("Lengkapi nama, nomor WhatsApp, pesanan, alamat, dan jarak terlebih dahulu.");
+    return;
+  }
+
+  if(nomorAdmin === "6285816380788"){
+    alert("Ganti nomor WhatsApp admin di dalam kode terlebih dahulu.");
+    return;
+  }
+
+  const biaya = hitungTarif(jarak);
+  const pesan =
+`PESANAN ANTARIN FOOD
+Nama: ${nama}
+WhatsApp pelanggan: ${hp}
+Pesanan: ${pesanan}
+Alamat tujuan: ${alamat}
+Lokasi Google Maps: ${lokasi || "Belum diberikan"}
+Jarak perkiraan: ${jarak} km
+Ongkir: ${rupiah(biaya)}
+
+Mohon konfirmasi harga dan ketersediaan makanan sebelum diproses.`;
+
+  window.open("https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(pesan), "_blank");
+}
+</script>
+</body>
+</html>
