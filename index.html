@@ -4,139 +4,339 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANTARIN - Pesan & Antar</title>
+<meta name="theme-color" content="#071b16">
+<title>ANTARIN — Pesan, Kami Antar</title>
+
 <style>
+:root {
+  --bg:#071b16;
+  --panel:#102820;
+  --green:#16c784;
+  --light:#eafff4;
+  --muted:#9bb8aa;
+  --line:#25483b;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7f5;color:#17251d}
-header{background:#087d50;color:white;padding:25px 20px;border-radius:0 0 25px 25px}
-header h1{margin:0;font-size:30px}
-header p{margin:8px 0 0}
-main{max-width:600px;margin:auto;padding:18px}
-.card{background:white;padding:20px;border-radius:18px;margin-bottom:16px;box-shadow:0 4px 15px #0000000c}
-h2{margin-top:0;color:#087d50}
-label{display:block;font-weight:bold;margin:14px 0 7px}
-input,textarea{width:100%;padding:13px;border:1px solid #d5ded8;border-radius:10px;font-size:16px}
-textarea{min-height:85px;resize:vertical}
-button{width:100%;padding:14px;border:0;border-radius:11px;background:#087d50;color:white;font-size:16px;font-weight:bold;margin-top:12px}
-.map{background:#e8f5ed;color:#087d50}
-.price{font-size:25px;font-weight:bold;color:#087d50}
-.note{font-size:13px;color:#64736a;line-height:1.5}
-.disabled{opacity:.6}
-footer{text-align:center;padding:25px;color:#718078;font-size:13px}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--light);
+}
+header{
+  padding:22px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--green)}
+.status{
+  color:#8df5bf;
+  background:#123c2c;
+  padding:8px 12px;
+  border-radius:30px;
+  font-size:12px;
+}
+main{max-width:600px;margin:auto;padding:20px}
+.hero{
+  padding:28px 22px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#124a35,#0b2820 75%);
+  margin:12px 0 24px;
+}
+.hero small{color:#9af2bd}
+.hero h1{font-size:34px;line-height:1.15;margin:12px 0}
+.hero p{color:#c0d9cc;line-height:1.6}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+}
+h2{font-size:19px;margin:0 0 16px}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.service{
+  background:#15382b;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:17px 12px;
+  cursor:pointer;
+  color:white;
+  text-align:left;
+}
+.service.active{border:2px solid var(--green);background:#164331}
+.service .emoji{font-size:27px}
+.service strong{display:block;margin:9px 0 5px}
+.service small{color:var(--muted);font-size:11px}
+label{display:block;font-size:13px;margin:15px 0 8px;color:#c8e1d4}
+input,textarea,select{
+  width:100%;
+  padding:14px;
+  background:#081d16;
+  border:1px solid var(--line);
+  color:white;
+  border-radius:12px;
+  font-size:15px;
+  outline:none;
+}
+input:focus,textarea:focus{border-color:var(--green)}
+textarea{min-height:90px;resize:vertical}
+button{
+  border:0;
+  border-radius:13px;
+  padding:15px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.primary{background:var(--green);color:#052016;width:100%}
+.gps{
+  background:#173d2e;
+  color:#9df4c1;
+  width:100%;
+  border:1px solid #347653;
+  margin-top:12px;
+}
+.info{
+  background:#0b2119;
+  border:1px solid var(--line);
+  padding:14px;
+  border-radius:13px;
+  margin-top:12px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.fee{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 0;
+  border-top:1px solid var(--line);
+  margin-top:16px;
+}
+.fee strong{color:#8ff4b8;font-size:17px}
+.hidden{display:none}
+footer{
+  text-align:center;
+  color:#759486;
+  padding:25px;
+  font-size:12px;
+}
+a{color:#8ff4b8}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>ANTARIN</h1>
-<p>Pesan kebutuhanmu, kami bantu antarkan.</p>
+  <div class="logo">ANTAR<span>IN</span></div>
+  <div class="status">● Layanan Online</div>
 </header>
 
 <main>
+
+<section class="hero">
+  <small>PESAN APA SAJA, KAMI ANTARKAN</small>
+  <h1>Kamu pesan.<br>Kami yang antar.</h1>
+  <p>Butuh makanan atau bantuan antar? Kirim pesanan dan lokasi. Biar ANTARIN yang urus.</p>
+</section>
+
 <section class="card">
-<h2>ANTARIN FOOD 🍜</h2>
-<p>Tulis makanan yang ingin kamu pesan. Kami akan menghubungi kamu untuk konfirmasi.</p>
-
-<label>Nama pelanggan</label>
-<input id="nama" placeholder="Nama kamu">
-
-<label>Nomor WhatsApp</label>
-<input id="hp" type="tel" placeholder="08xxxxxxxxxx">
-
-<label>Mau pesan apa?</label>
-<textarea id="pesanan" placeholder="Contoh: nasi goreng 2, es teh 1"></textarea>
-
-<label>Alamat tujuan</label>
-<textarea id="alamat" placeholder="Nama jalan, desa, kecamatan, patokan rumah"></textarea>
-
-<label>Lokasi Google Maps (tautan)</label>
-<input id="lokasi" placeholder="Tempel tautan lokasi Google Maps">
-
-<button class="map" onclick="bukaMaps()">📍 Pilih / Buka Lokasi di Google Maps</button>
-
-<label>Jarak pengantaran (km)</label>
-<input id="jarak" type="number" min="0.1" step="0.1" placeholder="Contoh: 3" oninput="hitungOngkir()">
-
-<p class="note">Masukkan perkiraan jarak dari tempat pembelian ke alamat tujuan. Ongkir dihitung berdasarkan kilometer penuh.</p>
-
-<div class="card">
-<p>Ongkos kirim</p>
-<div class="price" id="ongkir">Rp4.000</div>
-<p class="note">Harga makanan dan ketersediaan akan dikonfirmasi melalui WhatsApp sebelum pesanan diproses.</p>
-</div>
-
-<button onclick="kirimPesanan()">Pesan Sekarang via WhatsApp</button>
+  <h2>Pilih layanan</h2>
+  <div class="services">
+    <button class="service active" id="foodBtn" onclick="showFood()">
+      <span class="emoji">🍔</span>
+      <strong>ANTARIN FOOD</strong>
+      <small>Pesan makanan dan minuman</small>
+    </button>
+    <button class="service" id="schoolBtn" onclick="showSchool()">
+      <span class="emoji">🎒</span>
+      <strong>ANTARIN SEKOLAH</strong>
+      <small>Informasi layanan antar sekolah</small>
+    </button>
+  </div>
 </section>
 
-<section class="card disabled">
-<h2>ANTARIN SEKOLAH 🏫</h2>
-<p>Layanan belum aktif. Akan tersedia setelah persyaratan pengemudi dan keselamatan penumpang terpenuhi.</p>
+<section class="card" id="foodSection">
+  <h2>🛵 Formulir pesanan</h2>
+
+  <form id="orderForm">
+    <label>Nama pelanggan</label>
+    <input id="nama" placeholder="Masukkan nama kamu" required>
+
+    <label>Nomor WhatsApp</label>
+    <input id="wa" type="tel" placeholder="08xxxxxxxxxx" required>
+
+    <label>Mau pesan apa?</label>
+    <textarea id="pesanan" placeholder="Contoh: nasi goreng 2, es teh 1..." required></textarea>
+
+    <label>Catatan tambahan (opsional)</label>
+    <textarea id="catatan" placeholder="Contoh: tidak pedas, sambal dipisah..."></textarea>
+
+    <label>Lokasi awal pengantaran</label>
+    <select id="asal">
+      <option value="rumah">Rumah</option>
+      <option value="ambil">Tempat ambil pesanan</option>
+    </select>
+
+    <div class="info">
+      Pilih lokasi tujuan dengan tombol GPS di bawah. Lokasi hanya digunakan untuk membantu pengantaran.
+    </div>
+
+    <button type="button" class="gps" onclick="ambilLokasi()">
+      📍 BAGIKAN LOKASI SAYA
+    </button>
+
+    <div class="info" id="lokasiInfo">
+      Lokasi belum dibagikan.
+    </div>
+
+    <div class="fee">
+      <span>Ongkos perjalanan</span>
+      <strong id="ongkir">Menunggu rute</strong>
+    </div>
+
+    <div class="info">
+      Tarif ANTARIN:
+      <br>0–1 km: Rp4.000
+      <br>2 km: Rp5.000
+      <br>3 km: Rp7.000
+      <br>4 km: Rp9.000
+      <br>5 km: Rp11.000
+      <br>6 km: Rp13.000
+      <br>7 km: Rp15.000
+      <br><br>
+      Ongkir final dikonfirmasi admin setelah rute perjalanan diperiksa. Website ini belum terhubung ke layanan perhitungan rute otomatis.
+    </div>
+
+    <button class="primary" type="submit" style="margin-top:18px">
+      KIRIM PESANAN VIA WHATSAPP →
+    </button>
+  </form>
 </section>
+
+<section class="card hidden" id="schoolSection">
+  <h2>🎒 ANTARIN SEKOLAH</h2>
+  <p style="color:var(--muted);line-height:1.7">
+    Layanan antar sekolah masih dalam tahap persiapan. Informasi lebih lanjut akan tersedia setelah persyaratan keselamatan, pengemudi dewasa yang memenuhi syarat, dan ketentuan setempat dipastikan.
+  </p>
+  <div class="info">Status: Segera hadir.</div>
+</section>
+
 </main>
 
-<footer>© 2026 ANTARIN</footer>
+<footer>
+  © 2026 ANTARIN · Pesan, Kami Antar
+</footer>
 
 <script>
-const nomorAdmin = "6285816380788"; // Ganti dengan nomor WhatsApp admin
+// GANTI dengan nomor WhatsApp admin ANTARIN.
+// Gunakan format 62, tanpa tanda + atau spasi.
+const NOMOR_ADMIN = "6281234567890";
 
-function hitungTarif(jarak){
-  const km = Math.floor(Math.max(0, jarak));
-  return km <= 1 ? 4000 : 5000 + (km - 2) * 2000;
+// Lokasi awal diatur admin nanti.
+// Isi koordinat melalui konfigurasi yang aman.
+// Jangan memasukkan alamat rumah pribadi ke halaman publik.
+const LOKASI_ASAL = {
+  rumah: null,
+  ambil: null
+};
+
+let koordinatPelanggan = null;
+
+function showFood(){
+  document.getElementById("foodSection").classList.remove("hidden");
+  document.getElementById("schoolSection").classList.add("hidden");
+  document.getElementById("foodBtn").classList.add("active");
+  document.getElementById("schoolBtn").classList.remove("active");
 }
 
-function rupiah(angka){
-  return "Rp" + angka.toLocaleString("id-ID");
+function showSchool(){
+  document.getElementById("foodSection").classList.add("hidden");
+  document.getElementById("schoolSection").classList.remove("hidden");
+  document.getElementById("foodBtn").classList.remove("active");
+  document.getElementById("schoolBtn").classList.add("active");
 }
 
-function hitungOngkir(){
-  const jarak = parseFloat(document.getElementById("jarak").value);
-  const biaya = Number.isFinite(jarak) && jarak >= 0
-    ? hitungTarif(jarak) : 4000;
-  document.getElementById("ongkir").textContent = rupiah(biaya);
-}
+function ambilLokasi(){
+  const info = document.getElementById("lokasiInfo");
 
-function bukaMaps(){
-  const lokasi = document.getElementById("lokasi").value.trim();
-  if(lokasi){
-    window.open(lokasi, "_blank");
-  }else{
-    window.open("https://www.google.com/maps", "_blank");
+  if(!navigator.geolocation){
+    info.textContent = "Browser tidak mendukung GPS.";
+    return;
   }
+
+  info.textContent = "Sedang meminta izin lokasi...";
+
+  navigator.geolocation.getCurrentPosition(
+    function(pos){
+      koordinatPelanggan = {
+        lat: pos.coords.latitude,
+        lon: pos.coords.longitude
+      };
+
+      const maps = "https://www.google.com/maps?q=" +
+        koordinatPelanggan.lat + "," + koordinatPelanggan.lon;
+
+      info.innerHTML =
+        "✅ Lokasi berhasil diperoleh.<br>" +
+        "<a href='" + maps + "' target='_blank' rel='noopener'>Lihat lokasi di Google Maps</a>";
+    },
+    function(error){
+      info.textContent = "Lokasi gagal diperoleh. Pastikan izin GPS diberikan dan coba lagi.";
+    },
+    {enableHighAccuracy:true, timeout:15000, maximumAge:0}
+  );
 }
 
-function kirimPesanan(){
+document.getElementById("orderForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  if(!koordinatPelanggan){
+    alert("Bagikan lokasi terlebih dahulu.");
+    return;
+  }
+
+  if(NOMOR_ADMIN === "6281234567890"){
+    alert("Admin perlu mengganti nomor WhatsApp contoh di dalam kode.");
+    return;
+  }
+
   const nama = document.getElementById("nama").value.trim();
-  const hp = document.getElementById("hp").value.trim();
+  const wa = document.getElementById("wa").value.trim();
   const pesanan = document.getElementById("pesanan").value.trim();
-  const alamat = document.getElementById("alamat").value.trim();
-  const lokasi = document.getElementById("lokasi").value.trim();
-  const jarak = parseFloat(document.getElementById("jarak").value);
+  const catatan = document.getElementById("catatan").value.trim();
+  const asal = document.getElementById("asal").value;
 
-  if(!nama || !hp || !pesanan || !alamat || !Number.isFinite(jarak) || jarak <= 0){
-    alert("Lengkapi nama, nomor WhatsApp, pesanan, alamat, dan jarak terlebih dahulu.");
-    return;
-  }
+  const maps = "https://www.google.com/maps?q=" +
+    koordinatPelanggan.lat + "," + koordinatPelanggan.lon;
 
-  if(nomorAdmin === "6285816380788"){
-    alert("Ganti nomor WhatsApp admin di dalam kode terlebih dahulu.");
-    return;
-  }
+  const teks =
+`HALO ANTARIN, SAYA MAU PESAN
 
-  const biaya = hitungTarif(jarak);
-  const pesan =
-`PESANAN ANTARIN FOOD
 Nama: ${nama}
-WhatsApp pelanggan: ${hp}
+WhatsApp: ${wa}
 Pesanan: ${pesanan}
-Alamat tujuan: ${alamat}
-Lokasi Google Maps: ${lokasi || "Belum diberikan"}
-Jarak perkiraan: ${jarak} km
-Ongkir: ${rupiah(biaya)}
+Catatan: ${catatan || "-"}
+Lokasi awal: ${asal === "rumah" ? "Rumah" : "Tempat ambil pesanan"}
 
-Mohon konfirmasi harga dan ketersediaan makanan sebelum diproses.`;
+Lokasi tujuan:
+${maps}
 
-  window.open("https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(pesan), "_blank");
-}
+Ongkir: Mohon konfirmasi admin berdasarkan rute.
+Terima kasih.`;
+
+  const url = "https://wa.me/" + NOMOR_ADMIN +
+    "?text=" + encodeURIComponent(teks);
+
+  window.open(url,"_blank");
+});
 </script>
+
 </body>
 </html>
